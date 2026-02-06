@@ -1,0 +1,19 @@
+based on this sample exam pdf generate 40 multiple choice questions in this json format:
+
+{
+      title: "What is the capital of France?",
+answers: ["London", "Paris", "Berlin", "Madrid"],
+correctIndex: 1
+    },
+    {
+title: "What is 2 + 2?",
+answers: ["3", "4", "5", "6"],
+correctIndex: 1
+    },
+    {
+title: "Which planet is known as the Red Planet?",
+answers: ["Venus", "Mars", "Jupiter", "Saturn"],
+correctIndex: 1
+    }
+
+the title is the questions, answers are answer choices and correct index is self explanatory

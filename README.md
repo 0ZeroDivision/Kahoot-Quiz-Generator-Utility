@@ -86,10 +86,9 @@ https://create.kahoot.it/creator
 ```
 ![Kahoot Creator Page](./Image%201.png)
 ---
-
 ## Step 3: Open the Web Console
-
 Inspect the page and open your browser’s developer tools, then switch to the **Console** tab.
+
 ![Web Console](./Image%202.png)
 ---
 

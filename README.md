@@ -81,9 +81,9 @@ Give me the full code with the new JSON questions list integrated in instead of 
 ## Step 2: Open Kahoot Quiz Creator
 
 Visit:
-```text
-https://create.kahoot.it/creator
-```
+
+[https://create.kahoot.it/creator](https://create.kahoot.it/creator)
+
 ![Kahoot Creator Page](./Image%201.png)
 ---
 ## Step 3: Open the Web Console

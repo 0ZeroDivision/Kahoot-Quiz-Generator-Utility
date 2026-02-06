@@ -1,7 +1,7 @@
 /***********************
  *  MAIN FUNCTION      *
  ***********************/
-async function runAutomation() {
+async function runAutomation(kahootTitle , kahootDescription) {
   console.log("Kahoot Automation Starting...");
   
   // Define all your questions
@@ -57,7 +57,17 @@ async function runAutomation() {
   }
   
   console.log("[ DONE ] All questions created successfully!");
+  
+  // Set the kahoot title, description, and save
+  await sleep(500);
+  await setKahootTitleAndDescription(kahootTitle, kahootDescription);
+  
+  console.log("[ COMPLETE ] Kahoot automation finished!");
 }
 
 // START THE AUTOMATION
-runAutomation();
+// You can customize the title and description by passing them as parameters:
+runAutomation(
+  "General Knowledge Quiz", 
+  "Test your knowledge with these fun questions about geography, math, science, literature, and more!"
+);

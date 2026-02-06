@@ -1,4 +1,4 @@
-# Kahoot Quiz Generator via AI
+# Kahoot Quiz Generator powered by AI
 
 This project shows how to use **any AI chatbot** to generate a Kahoot quiz automatically using your browser’s developer console.
 

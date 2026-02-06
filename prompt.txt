@@ -1,19 +1,58 @@
-based on this sample exam pdf generate 40 multiple choice questions in this json format:
+Generate 20 multiple choice questions on the French Revolution in a json format compatible with this example code:
 
-{
+async function runAutomation(kahootTitle, kahootDescription) {
+  console.log("Kahoot Automation Starting...");
+  const questions = [
+    {
       title: "What is the capital of France?",
-answers: ["London", "Paris", "Berlin", "Madrid"],
-correctIndex: 1
+      answers: ["London", "Paris", "Berlin", "Madrid"],
+      correctIndex: 1
     },
     {
-title: "What is 2 + 2?",
-answers: ["3", "4", "5", "6"],
-correctIndex: 1
+      title: "What is 2 + 2?",
+      answers: ["3", "4", "5", "6"],
+      correctIndex: 1
     },
     {
-title: "Which planet is known as the Red Planet?",
-answers: ["Venus", "Mars", "Jupiter", "Saturn"],
-correctIndex: 1
+      title: "Which planet is known as the Red Planet?",
+      answers: ["Venus", "Mars", "Jupiter", "Saturn"],
+      correctIndex: 1
+    },
+    {
+      title: "Who wrote 'Romeo and Juliet'?",
+      answers: ["Charles Dickens", "William Shakespeare", "Mark Twain", "Jane Austen"],
+      correctIndex: 1
+    },
+    {
+      title: "What is the largest ocean on Earth?",
+      answers: ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
+      correctIndex: 3
     }
+  ];
+  await waitForUserClick();
+  await sleep(300);
+  for (let i = 0; i < questions.length; i++) {
+    console.log(`:: Creating question ${i + 1} of ${questions.length}...`);
+    await buildQuestion(questions[i]);
+    console.log(`[ OK ] Question ${i + 1} created!`);
+    if (i < questions.length - 1) {
+      await sleep(50);
+      clickAddQuestion();
+      await sleep(50);
+      await selectQuizQuestionType();
+      await sleep(100);
+    }
+  }
+  console.log("[ DONE ] All questions created successfully!");
+  await sleep(500);
+  await setKahootTitleAndDescription(kahootTitle, kahootDescription);
+  console.log("[ COMPLETE ] Kahoot automation finished!");
+}
+// You can customize the title and description by passing them as parameters:
+runAutomation(
+  "General Knowledge Quiz",
+  "Test your knowledge with these fun questions about geography, math, science, literature, and more!"
+);
 
-the title is the questions, answers are answer choices and correct index is self explanatory
+
+Give me the full code with the new JSON questions list integrated in instead of these example question and come up with a title for the quiz to put in the kahootTitle parameter and a description to put in the kahootDescription parameter. Change nothing else.

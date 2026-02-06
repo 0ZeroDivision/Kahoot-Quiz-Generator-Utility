@@ -1,12 +1,12 @@
 # Kahoot Quiz Generator via AI
 
-This project shows how to use **any AI chatbot** to generate quiz questions and automatically apply them to a **Kahoot Quiz** using your browser’s developer console.
+This project shows how to use **any AI chatbot** to generate a Kahoot quiz automatically using your browser’s developer console.
 
 ---
 
 ## Overview
 
-You can use the AI chatbot of your choice to generate questions and have them applied to a Kahoot Quiz.
+You can use the AI chatbot of your choice to generate questions, a title, and description for a quiz on a topic of your choice.
 
 The flow is simple:
 
@@ -25,11 +25,10 @@ Generate the questions with a prompt similar to the one below in order to receiv
 > **Copy & paste this prompt into your AI chatbot:**
 
 ```text
-Generate 40 multiple choice questions on the French Revolution in a json format compatible with this example code:
+Generate 20 multiple choice questions on the French Revolution in a json format compatible with this example code:
 
-async function runAutomation() {
+async function runAutomation(kahootTitle, kahootDescription) {
   console.log("Kahoot Automation Starting...");
-  // Enter your questions JSON here
   const questions = [
     {
       title: "What is the capital of France?",
@@ -72,10 +71,18 @@ async function runAutomation() {
     }
   }
   console.log("[ DONE ] All questions created successfully!");
+  await sleep(500);
+  await setKahootTitleAndDescription(kahootTitle, kahootDescription);
+  console.log("[ COMPLETE ] Kahoot automation finished!");
 }
-runAutomation();
+// You can customize the title and description by passing them as parameters:
+runAutomation(
+  "General Knowledge Quiz",
+  "Test your knowledge with these fun questions about geography, math, science, literature, and more!"
+);
 
-Give me the full code with the new JSON questions list integrated in instead of these example question.
+
+Give me the full code with the new JSON questions list integrated in instead of these example question and come up with a title for the quiz to put in the kahootTitle parameter and a description to put in the kahootDescription parameter. Change nothing else.
 ```
 
 ## Step 2: Open Kahoot Quiz Creator
@@ -98,7 +105,6 @@ Paste the following JavaScript into the console and press **Enter**.
 This will load the program and prepare Kahoot for automated question entry.
 [Jump to next step](#step-5-paste-your-generated-questions)
 ```text
-
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 function waitForUserClick() {
   return new Promise((resolve) => {
@@ -222,6 +228,37 @@ function selectCorrectAnswer(index) {
   }
   toggles[index].click();
 }
+async function setKahootTitleAndDescription(title, description) {
+  console.log(`[ INFO ] Setting kahoot title to: "${title}"`);
+  const titleButton = document.querySelector('.settings-button__TitleButton-sc-1mmj9ec-1');
+  if (!titleButton) throw "Kahoot title button not found";
+  titleButton.scrollIntoView({ block: "center" });
+  titleButton.click();
+  console.log("[ OK ] Title dialog opened");
+  await sleep(500);
+  const titleInput = document.querySelector('[data-functional-selector="dialog-information-kahoot__kahoot_title_input"]');
+  if (!titleInput) throw "Kahoot title input not found in dialog";
+  await humanType(titleInput, title);
+  console.log("[ OK ] Title entered");
+  await sleep(200);
+  const descriptionTextarea = document.querySelector('[data-functional-selector="dialog-information-kahoot__kahoot_description_textarea"]');
+  if (!descriptionTextarea) throw "Kahoot description textarea not found in dialog";
+  await humanType(descriptionTextarea, description);
+  console.log("[ OK ] Description entered");
+  await sleep(200);
+  const doneButton = document.querySelector('[data-functional-selector="dialog-information-kahoot__done-button"]');
+  if (!doneButton) throw "Done button not found";
+  doneButton.scrollIntoView({ block: "center" });
+  doneButton.click();
+  console.log("[ OK ] Title and description set, dialog closed");
+  await sleep(5000);
+  const saveButton = document.querySelector('[data-functional-selector="top-bar__save-button"]');
+  if (!saveButton) throw "Save button not found";
+  saveButton.scrollIntoView({ block: "center" });
+  saveButton.click();
+  console.log("[ OK ] Kahoot saved");
+  await sleep(500);
+}
 async function buildQuestion({ title, answers, correctIndex }) {
   const titleEl = document.querySelector(
     '[data-functional-selector="question-title__input"]'
@@ -233,7 +270,7 @@ async function buildQuestion({ title, answers, correctIndex }) {
     '[data-functional-selector="question-answer__input"]'
   );
   for (let i = 0; i < answers.length; i++) {
-    if (!answers[i]) continue; // skip null / ""
+    if (!answers[i]) continue;
     if (!answerEls[i]) throw `Answer input ${i} not found`;
     await humanType(answerEls[i], answers[i]);
     await sleep(50);

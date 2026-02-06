@@ -175,6 +175,55 @@ function selectCorrectAnswer(index) {
   toggles[index].click();
 }
 
+async function setKahootTitleAndDescription(title, description) {
+  console.log(`[ INFO ] Setting kahoot title to: "${title}"`);
+  
+  // Click the "Enter kahoot title…" button to open the dialog
+  const titleButton = document.querySelector('.settings-button__TitleButton-sc-1mmj9ec-1');
+  if (!titleButton) throw "Kahoot title button not found";
+  
+  titleButton.scrollIntoView({ block: "center" });
+  titleButton.click();
+  console.log("[ OK ] Title dialog opened");
+  await sleep(500);
+  
+  // Find and type into the title input field that appears in the dialog
+  const titleInput = document.querySelector('[data-functional-selector="dialog-information-kahoot__kahoot_title_input"]');
+  
+  if (!titleInput) throw "Kahoot title input not found in dialog";
+  
+  await humanType(titleInput, title);
+  console.log("[ OK ] Title entered");
+  await sleep(200);
+  
+  // Find and type into the description textarea
+  const descriptionTextarea = document.querySelector('[data-functional-selector="dialog-information-kahoot__kahoot_description_textarea"]');
+  
+  if (!descriptionTextarea) throw "Kahoot description textarea not found in dialog";
+  
+  await humanType(descriptionTextarea, description);
+  console.log("[ OK ] Description entered");
+  await sleep(200);
+  
+  // Click the Done button
+  const doneButton = document.querySelector('[data-functional-selector="dialog-information-kahoot__done-button"]');
+  if (!doneButton) throw "Done button not found";
+  
+  doneButton.scrollIntoView({ block: "center" });
+  doneButton.click();
+  console.log("[ OK ] Title and description set, dialog closed");
+  await sleep(5000);
+  
+  // Click the Save button
+  const saveButton = document.querySelector('[data-functional-selector="top-bar__save-button"]');
+  if (!saveButton) throw "Save button not found";
+  
+  saveButton.scrollIntoView({ block: "center" });
+  saveButton.click();
+  console.log("[ OK ] Kahoot saved");
+  await sleep(500);
+}
+
 /***********************
  *  QUESTION BUILDER  *
  ***********************/
@@ -210,4 +259,3 @@ async function buildQuestion({ title, answers, correctIndex }) {
   }
   await sleep(100);
 }
-

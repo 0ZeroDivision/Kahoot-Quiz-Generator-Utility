@@ -82,7 +82,7 @@ runAutomation(
 );
 
 
-Give me the full code with the new JSON questions list integrated in instead of these example question and come up with a title for the quiz to put in the kahootTitle parameter and a description to put in the kahootDescription parameter. Change nothing else. Importantly, the questions have a 75 chanracter limit and the questions ahve a 120 character limit that is NOT to be exceeded.
+Give me the full code with the new JSON questions list integrated in instead of these example question and come up with a title for the quiz to put in the Kahoot Title parameter and a description to put in the Kahoot Description parameter. Change nothing else. Importantly, the questions have a 75 character limit and the questions have a 120 character limit that is NOT to be exceeded.
 ```
 
 ## Step 2: Open Kahoot Quiz Creator

@@ -22,7 +22,7 @@ The flow is simple:
 
 Generate the questions with a prompt similar to the one below in order to receive your data in the **correct JSON format**.
 
-> **Copy & paste this prompt into your AI chatbot:**
+> **Copy & paste this prompt into your AI chatbot and edit the topic sentence at the top to fit your request:**
 
 ```text
 Generate 20 multiple choice questions on the French Revolution in a json format compatible with this example code:

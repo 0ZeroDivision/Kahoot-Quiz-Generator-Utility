@@ -24,7 +24,7 @@ Generate the questions with a prompt similar to the one below in order to receiv
 
 > **Copy & paste this prompt into your AI chatbot and edit the topic sentence at the top to fit your request:**
 
-> **Optional: Add source material like a pdf to keep questions relevant and accurate. If your source material is a YouTube video include the transcript of the video in your prompt. You can use this site to do so https://project-p6350.vercel.app/**
+> **Optional: Add source material like a pdf to keep questions relevant and accurate.
 
 ```text
 Generate 20 multiple choice questions on the French Revolution in a json format compatible with this example code:

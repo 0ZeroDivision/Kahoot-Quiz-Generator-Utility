@@ -96,7 +96,7 @@ Visit:
 ![Kahoot Creator Page](./Image%201.png)
 ---
 ## Step 3: Open the Web Console
-Inspect the page and open your browser’s developer tools, then switch to the **Console** tab.
+Inspect the page and open your browser’s developer tools, then switch to the **Console** tab. Look-up how to do this on your browser if unsure.
 
 ![Web Console](./Image%202.png)
 ---

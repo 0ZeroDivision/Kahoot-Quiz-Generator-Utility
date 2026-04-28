@@ -20,7 +20,7 @@ The flow is simple:
 
 ## Step 1: Generate Questions with AI
 
-Generate the questions with a prompt similar to the one below in order to receive your data in the **correct JSON format**.
+Generate the questions with a prompt similar to the one below in order to receive your data in the **correct JSON format**. A list of free, no-login, high quality AI websites can be [found here](https://github.com/0ZeroDivision/Free-AI-Chat-Websites)
 
 > **Copy & paste this prompt into your AI chatbot and edit the topic sentence at the top to fit your request:**
 

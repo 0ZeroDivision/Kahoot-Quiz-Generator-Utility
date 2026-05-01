@@ -27,7 +27,7 @@ Generate the questions with a prompt similar to the one below in order to receiv
 > **Optional: Add source material like a pdf to keep questions relevant and accurate.**
 
 ```text
-Generate 20 multiple choice questions on the French Revolution in a json format compatible with this example code:
+Generate 20 multiple choice questions on the French Revolution in a json format compatible with this example code so that you can give me the full code with your questions in the place of the example ones below:
 
 async function runAutomation(kahootTitle, kahootDescription) {
   console.log("Kahoot Automation Starting...");

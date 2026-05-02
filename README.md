@@ -27,7 +27,7 @@ Generate the questions with a prompt similar to the one below in order to receiv
 > **Optional: Add source material like a PDF to keep questions relevant and accurate.**
 
 <details>
-<summary>📋 View prompt</summary>
+<summary>View and copy prompt</summary>
 
 ```text
 Generate 20 multiple choice questions on the French Revolution in a JSON format compatible with this example code so that you can give me the full code with your questions in the place of the example ones below:
@@ -118,7 +118,7 @@ This will load the program and prepare Kahoot for automated question entry.
 [Jump to next step](#step-5-paste-your-generated-questions)
 
 <details>
-<summary>📋 View automation script</summary>
+<summary>View and copy automation script</summary>
 
 ```javascript
 const sleep = ms => new Promise(r => setTimeout(r, ms));

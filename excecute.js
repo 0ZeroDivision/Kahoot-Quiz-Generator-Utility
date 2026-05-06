@@ -1,9 +1,9 @@
 /***********************
  *  MAIN FUNCTION      *
  ***********************/
-async function runAutomation(kahootTitle , kahootDescription) {
+async function runAutomation(kahootTitle, kahootDescription) {
   console.log("Kahoot Automation Starting...");
-  
+
   // Define all your questions
   const questions = [
     {
@@ -32,42 +32,56 @@ async function runAutomation(kahootTitle , kahootDescription) {
       correctIndex: 3
     }
   ];
-  
+
   // WAIT FOR USER CLICK FIRST
   await waitForUserClick();
-  
+
   // Small delay after click to ensure the field is ready
   await sleep(300);
-  
-  // Loop through and create each question
-  for (let i = 0; i < questions.length; i++) {
-    console.log(`:: Creating question ${i + 1} of ${questions.length}...`);
-    
-    await buildQuestion(questions[i]);
-    console.log(`[ OK ] Question ${i + 1} created!`);
-    
-    // If not the last question, add a new question
-    if (i < questions.length - 1) {
-      await sleep(50);
-      clickAddQuestion();
-      await sleep(50);
-      await selectQuizQuestionType();
-      await sleep(100);
+
+  // Loop through and create each question.
+  // If selectQuizQuestionType() can't find the quiz-type button, it throws
+  // SkipToSaveError — we catch that here and jump straight to title/save
+  // rather than aborting the whole run.
+  try {
+    for (let i = 0; i < questions.length; i++) {
+      console.log(`:: Creating question ${i + 1} of ${questions.length}...`);
+
+      await buildQuestion(questions[i]);
+      console.log(`[ OK ] Question ${i + 1} created!`);
+
+      // If not the last question, add a new question
+      if (i < questions.length - 1) {
+        await sleep(50);
+        clickAddQuestion();
+        await sleep(50);
+        await selectQuizQuestionType();
+        await sleep(100);
+      }
+    }
+
+    console.log("[ DONE ] All questions created successfully!");
+
+  } catch (err) {
+    if (err instanceof SkipToSaveError) {
+      // Quiz-type button was missing — skip remaining questions and save what we have
+      console.log("[ SKIP ] Quiz type button missing — jumping straight to title/save...");
+    } else {
+      // Unexpected error — re-throw so it still surfaces normally
+      throw err;
     }
   }
-  
-  console.log("[ DONE ] All questions created successfully!");
-  
+
   // Set the kahoot title, description, and save
   await sleep(500);
   await setKahootTitleAndDescription(kahootTitle, kahootDescription);
-  
+
   console.log("[ COMPLETE ] Kahoot automation finished!");
 }
 
 // START THE AUTOMATION
 // You can customize the title and description by passing them as parameters:
 runAutomation(
-  "General Knowledge Quiz", 
+  "General Knowledge Quiz",
   "Test your knowledge with these fun questions about geography, math, science, literature, and more!"
 );

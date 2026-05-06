@@ -30,7 +30,6 @@ Generate the questions with a prompt similar to the one below in order to receiv
 
 ```text
 Generate 20 multiple choice questions on the French Revolution in a JSON format compatible with this example code so that you can give me the full code with your questions in the place of the example ones below:
-
 async function runAutomation(kahootTitle, kahootDescription) {
   console.log("Kahoot Automation Starting...");
   const questions = [
@@ -62,19 +61,27 @@ async function runAutomation(kahootTitle, kahootDescription) {
   ];
   await waitForUserClick();
   await sleep(300);
-  for (let i = 0; i < questions.length; i++) {
-    console.log(`:: Creating question ${i + 1} of ${questions.length}...`);
-    await buildQuestion(questions[i]);
-    console.log(`[ OK ] Question ${i + 1} created!`);
-    if (i < questions.length - 1) {
-      await sleep(50);
-      clickAddQuestion();
-      await sleep(50);
-      await selectQuizQuestionType();
-      await sleep(100);
+  try {
+    for (let i = 0; i < questions.length; i++) {
+      console.log(`:: Creating question ${i + 1} of ${questions.length}...`);
+      await buildQuestion(questions[i]);
+      console.log(`[ OK ] Question ${i + 1} created!`);
+      if (i < questions.length - 1) {
+        await sleep(50);
+        clickAddQuestion();
+        await sleep(50);
+        await selectQuizQuestionType();
+        await sleep(100);
+      }
+    }
+    console.log("[ DONE ] All questions created successfully!");
+  } catch (err) {
+    if (err instanceof SkipToSaveError) {
+      console.log("[ SKIP ] Quiz type button missing — jumping straight to title/save...");
+    } else {
+      throw err;
     }
   }
-  console.log("[ DONE ] All questions created successfully!");
   await sleep(500);
   await setKahootTitleAndDescription(kahootTitle, kahootDescription);
   console.log("[ COMPLETE ] Kahoot automation finished!");
@@ -84,7 +91,6 @@ runAutomation(
   "General Knowledge Quiz",
   "Test your knowledge with these fun questions about geography, math, science, literature, and more!"
 );
-
 Give me the full code with the new JSON questions list integrated in instead of these example questions and come up with a title for the quiz to put in the Kahoot Title parameter and a description to put in the Kahoot Description parameter. Change nothing else. Importantly, the questions have a 120 character limit and the answer choices have a 75 character limit that is NOT to be exceeded. Ensure that the correct answers throughout the quiz are in different, random positions so as to encourage solving the problem rather than predicting where the next correct answer will be. Also avoid answer choices like "all of the above" or "both A and B" that reference other answer choices.
 ```
 
@@ -120,6 +126,14 @@ This will load the program and prepare Kahoot for automated question entry.
 
 ```javascript
 const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+class SkipToSaveError extends Error {
+  constructor() {
+    super("Quiz type button not found — skipping to save");
+    this.name = "SkipToSaveError";
+  }
+}
+
 function waitForUserClick() {
   return new Promise((resolve) => {
     const titleEl = document.querySelector('[data-functional-selector="question-title__input"]');
@@ -230,8 +244,8 @@ async function selectQuizQuestionType() {
     }
     await sleep(50);
   }
-  console.warn("[ ERROR ] Quiz type button not found after multiple attempts");
-  return false;
+  console.warn("[ ERROR ] Quiz type button not found after multiple attempts — skipping remaining questions");
+  throw new SkipToSaveError();
 }
 function selectCorrectAnswer(index) {
   const toggles = document.querySelectorAll(

@@ -91,7 +91,7 @@ runAutomation(
   "General Knowledge Quiz",
   "Test your knowledge with these fun questions about geography, math, science, literature, and more!"
 );
-Give me the full code with the new JSON questions list integrated in instead of these example questions and come up with a title for the quiz to put in the Kahoot Title parameter and a description to put in the Kahoot Description parameter. Change nothing else. Importantly, the questions have a 120 character limit and the answer choices have a 75 character limit that is NOT to be exceeded. Ensure that the correct answers throughout the quiz are in different, random positions so as to encourage solving the problem rather than predicting where the next correct answer will be. Also avoid answer choices like "all of the above" or "both A and B" that reference other answer choices.
+Give me the full code with the new JSON questions list integrated in instead of these example questions and come up with a title for the quiz to put in the Kahoot Title parameter and a description to put in the Kahoot Description parameter. Change nothing else. Importantly, the questions have a 120 character limit and the answer choices have a 75 character limit that is NOT to be exceeded. Ensure that the correct answers throughout the quiz are in different, random positions so as to encourage solving the problem rather than predicting where the next correct answer will be. Also avoid answer choices like "all of the above" or "both A and B" that reference other answer choices. If you are struggling to generate the answer indicies in a random order just go through the digits of pi modulo 4.
 ```
 
 </details>
